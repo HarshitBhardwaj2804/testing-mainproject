@@ -1,0 +1,275 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f1f5f9;
+  height: 100vh;
+  display: flex;
+  transition: background 0.3s, color 0.3s;
+  overflow-x: hidden; /* Prevent horizontal scroll when sidebar is hidden */
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  position: relative;
+  transition: transform 0.3s ease; /* Smooth transition for sidebar toggle */
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background-color: #b5b5b5;
+  color: #1e293b;
+  padding: 20px;
+  box-shadow: 3px 0 10px rgba(0, 0, 0, 0.05);
+  border-right: 1px solid #e2e8f0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar h2 {
+  font-size: 22px;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #0f172a;
+}
+
+.sidebar .sidebar-menu,
+.sidebar .sidebar-settings {
+  list-style: none;
+}
+
+.sidebar .sidebar-menu li,
+.sidebar .sidebar-settings li {
+  padding: 12px 10px 0 0;
+  margin: 10px 0;
+  background-color: #fafafa;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 1.13); /* Fixed invalid box-shadow value */
+}
+
+.sidebar .sidebar-settings li {
+  padding: 12px 10px 0 0;
+}
+
+.sidebar .sidebar-menu li:hover,
+.sidebar .sidebar-settings li:hover {
+  background-color: #e2e8f0;
+}
+
+.sidebar .sidebar-settings li {
+  margin-top: 402px; /* Consider adjusting for mobile */
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+  padding: 0 0 13px 12px;
+  width: 100%;
+}
+
+/* Close button for mobile sidebar */
+.close-sidebar {
+  display: none; /* Hidden on desktop */
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #1e293b;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+/* Main Chat Area */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f1f5f9;
+  margin-left: 220px; /* Matches sidebar width */
+  transition: margin-left 0.3s ease;
+}
+
+/* Header */
+.chat-header {
+  padding: 20px 30px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #838486;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-header header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.chat-header h1 {
+  font-size: 28px;
+  color: #1e293b;
+  margin: 0 auto;
+  font-weight: 600;
+}
+
+.chat-header button {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.chat-header button:hover {
+  background-color: #1e40af;
+  box-shadow: 0 6px 16px rgba(30, 64, 175, 0.35);
+}
+
+/* Hamburger menu for mobile */
+.hamburger {
+  display: none; /* Hidden on desktop */
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #1e293b;
+}
+
+/* Main Header */
+.main-header {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1e1e2f;
+  background-color: #f3f3f3;
+  padding: 15px 30px;
+  border-bottom: 2px solid #c2c8d0;
+  border-radius: 8px 8px 0 0;
+  box-shadow: inset 0 -1px 0 #ccc;
+  margin: 0 0 10px 0;
+}
+
+/* Extension Grid */
+.extensions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 30px;
+}
+
+/* Extension Card */
+.extension-card {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 12px 16px;
+  height: 100px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.extension-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.extension-card img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.extension-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    transform: translateX(-100%); /* Hidden off-screen */
+    width: 80%; /* Reduced width for mobile */
+    z-index: 1001;
+  }
+
+  .sidebar.active {
+    transform: translateX(0); /* Visible when toggled */
+  }
+
+  .close-sidebar {
+    display: block; /* Show close button on mobile */
+  }
+
+  .main {
+    margin-left: 0; /* No margin when sidebar is hidden */
+  }
+
+  .hamburger {
+    display: block; /* Show hamburger menu on mobile */
+  }
+
+  .chat-header h1 {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .main-header {
+    font-size: 18px;
+    padding: 12px 15px;
+  }
+
+  .extensions-grid {
+    grid-template-columns: 1fr; /* Single column on mobile */
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .extension-card {
+    height: 80px;
+    padding: 10px 12px;
+  }
+
+  .extension-card img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .extension-name {
+    font-size: 14px;
+  }
+
+  .sidebar .sidebar-settings li {
+    margin-top: 20px; /* Adjusted for mobile */
+  }
+}
