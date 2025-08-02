@@ -8,6 +8,9 @@ from langchain_core.output_parsers import StrOutputParser
 from src.utils import JSONChatMessageHistory
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables.history import RunnableWithMessageHistory
+
+from datetime import datetime
+import random, string
 load_dotenv()
 
 ## Setting-Up Langchain-tracing.
@@ -38,19 +41,29 @@ message_chain = RunnableWithMessageHistory(
     history_messages_key="history"
 )
 
+def generate_session_details():
+    timestamp = datetime.now().strftime("%Y%m%d%H%M%S%f")
+    rand_suffix = "".join(random.choices(string.ascii_lowercase + string.digits, k=6))
+    session_id = f"session_{timestamp}-{rand_suffix}"
+    date = datetime.now().strftime("%Y-%m-%d")
+    time = datetime.now().strftime("%H:%M:%S")
+    return [session_id, date, time]
+
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    session_id, date, time = generate_session_details()
+    return render_template("index.html", session_id = session_id)
 
 @app.route("/send_message", methods=["POST"])
 def send_message():
     user_message = request.json.get("message")
+    session_id = request.json.get("session_id")
     
     response = message_chain.invoke(
     {"question": user_message},
-    config={"configurable": {"session_id": "test-session"}}
+    config={"configurable": {"session_id": session_id}}
     )
     
     return jsonify({"reply": response.content})
@@ -64,4 +77,4 @@ def history():
     return render_template("history.html")
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)
+    app.run(debug=True)
