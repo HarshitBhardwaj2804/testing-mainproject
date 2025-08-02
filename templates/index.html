@@ -46,72 +46,77 @@
   </div>
 
   <script>
-  function goToPage(route) {
-    window.location.href = route;
-  }
 
-  // Typing animation with Markdown
-  function typeMarkdownText(element, markdownText, delay = 20) {
-    const words = markdownText.split(" ");
-    let current = "";
+    const session_id = "{{session_id}}";
+    function goToPage(route) {
+      window.location.href = route;
+    }
 
-    function type() {
-      if (words.length > 0) {
-        current += words.shift() + " ";
-        element.innerHTML = marked.parse(current);
-        setTimeout(type, delay);
+    // Typing animation with Markdown
+    function typeMarkdownText(element, markdownText, delay = 20) {
+      const words = markdownText.split(" ");
+      let current = "";
+
+      function type() {
+        if (words.length > 0) {
+          current += words.shift() + " ";
+          element.innerHTML = marked.parse(current);
+          setTimeout(type, delay);
+        }
+      }
+      type();
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById("user-input");
+      const chatBox = document.getElementById("chat-box");
+      const message = input.value.trim();
+      if (!message) return;
+
+      // Add user's message
+      const userMessage = document.createElement("div");
+      userMessage.className = "chat-message user";
+      userMessage.innerText = message;
+      chatBox.appendChild(userMessage);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      input.value = "";
+
+      // Create placeholder for bot message
+      const botMessage = document.createElement("div");
+      botMessage.className = "chat-message bot";
+      chatBox.appendChild(botMessage);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      try {
+        const res = await fetch("/send_message", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            message: message,
+            session_id: session_id
+          })
+        });
+
+        const data = await res.json();
+
+        // Animate the markdown response
+        typeMarkdownText(botMessage, data.reply);
+
+      } catch (error) {
+        botMessage.innerText = "⚠️ Error getting response from server.";
+        console.error("Error in sendMessage:", error);
       }
     }
-    type();
-  }
 
-  async function sendMessage() {
-    const input = document.getElementById("user-input");
-    const chatBox = document.getElementById("chat-box");
-    const message = input.value.trim();
-    if (!message) return;
+    document.querySelector('.hamburger').addEventListener('click', () => {
+      document.querySelector('.sidebar').classList.toggle('active');
+    });
 
-    // Add user's message
-    const userMessage = document.createElement("div");
-    userMessage.className = "chat-message user";
-    userMessage.innerText = message;
-    chatBox.appendChild(userMessage);
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    input.value = "";
-
-    // Create placeholder for bot message
-    const botMessage = document.createElement("div");
-    botMessage.className = "chat-message bot";
-    chatBox.appendChild(botMessage);
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    try {
-      const res = await fetch("/send_message", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: message })
-      });
-
-      const data = await res.json();
-
-      // Animate the markdown response
-      typeMarkdownText(botMessage, data.reply);
-
-    } catch (error) {
-      botMessage.innerText = "⚠️ Error getting response from server.";
-      console.error("Error in sendMessage:", error);
-    }
-  }
-
-  document.querySelector('.hamburger').addEventListener('click', () => {
-    document.querySelector('.sidebar').classList.toggle('active');
-  });
-
-  document.querySelector('.close-sidebar').addEventListener('click', () => {
-    document.querySelector('.sidebar').classList.remove('active');
-  });
-</script>
+    document.querySelector('.close-sidebar').addEventListener('click', () => {
+      document.querySelector('.sidebar').classList.remove('active');
+    });
+  </script>
 
 </body>
 
