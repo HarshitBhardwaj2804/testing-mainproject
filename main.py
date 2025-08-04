@@ -117,12 +117,11 @@ def history():
         except Exception:
             formatted_date = "Unknown"
 
-        date_time = f"{formatted_date} : {formatted_time}"
         sessions.append({
             "session_id": session_id,
             "chat_name": chat_name,
             "first_message": first_user_msg,
-            "datetime" : date_time
+            "datetime" : formatted_date
         })
 
     # Newest first
@@ -136,6 +135,7 @@ def settings():
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
+
 
 
 
