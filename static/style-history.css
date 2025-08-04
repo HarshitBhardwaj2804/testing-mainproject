@@ -12,14 +12,16 @@ body {
   height: 100vh;
   display: flex;
   transition: background 0.3s, color 0.3s;
-  overflow-x: hidden; /* Prevent horizontal scroll when sidebar is hidden */
+  overflow-x: hidden;
+  /* Prevent horizontal scroll when sidebar is hidden */
 }
 
 .container {
   display: flex;
   width: 100%;
   position: relative;
-  transition: transform 0.3s ease; /* Smooth transition for sidebar toggle */
+  transition: transform 0.3s ease;
+  /* Smooth transition for sidebar toggle */
 }
 
 /* Sidebar */
@@ -58,7 +60,8 @@ body {
   border-radius: 30px;
   cursor: pointer;
   transition: background 0.3s, box-shadow 0.3s;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 1.13); /* Fixed invalid box-shadow value */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 1.13);
+  /* Fixed invalid box-shadow value */
 }
 
 .sidebar .sidebar-settings li {
@@ -71,7 +74,8 @@ body {
 }
 
 .sidebar .sidebar-settings li {
-  margin-top: 402px; /* Consider adjusting for mobile */
+  margin-top: 402px;
+  /* Consider adjusting for mobile */
 }
 
 .nav-btn {
@@ -87,7 +91,8 @@ body {
 
 /* Close button for mobile sidebar */
 .close-sidebar {
-  display: none; /* Hidden on desktop */
+  display: none;
+  /* Hidden on desktop */
   background: none;
   border: none;
   font-size: 18px;
@@ -104,7 +109,8 @@ body {
   display: flex;
   flex-direction: column;
   background: #f1f5f9;
-  margin-left: 220px; /* Matches sidebar width */
+  margin-left: 220px;
+  /* Matches sidebar width */
   transition: margin-left 0.3s ease;
 }
 
@@ -113,7 +119,7 @@ body {
   padding: 20px 30px;
   background-color: #ffffff;
   border-bottom: 1px solid #838486;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -152,7 +158,8 @@ body {
 
 /* Hamburger menu for mobile */
 .hamburger {
-  display: none; /* Hidden on desktop */
+  display: none;
+  /* Hidden on desktop */
   background: none;
   border: none;
   font-size: 24px;
@@ -223,7 +230,8 @@ body {
   border-left: 2px solid #3b82f6;
   margin-top: 6px;
   border-radius: 4px;
-  display: none; /* Toggled via JS */
+  display: none;
+  /* Toggled via JS */
 }
 
 /* History List */
@@ -235,7 +243,7 @@ body {
   margin-bottom: 12px;
   background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   padding: 15px 20px;
   transition: all 0.3s ease;
   cursor: pointer;
@@ -276,6 +284,35 @@ body {
   margin-top: 5px;
 }
 
+/* Horizontal button container shown under each history item */
+.button-container {
+  display: none;
+  /* Hidden by default, toggled via JS */
+  margin: 8px 0 0 20px;
+  gap: 10px;
+  padding: 8px 0;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.button-container button,
+.button-container a button {
+  padding: 8px 14px;
+  border: none;
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-container button:hover,
+.button-container a button:hover {
+  background-color: #2563eb;
+}
+
+
 /* Expand/Collapse Animation */
 .history-item-expanded .arrow {
   transform: rotate(180deg);
@@ -315,7 +352,7 @@ body {
 
 .archive-item:hover,
 .extension-item:hover {
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .archive-item h4,
@@ -339,25 +376,31 @@ body {
   }
 
   .sidebar {
-    transform: translateX(-100%); /* Hidden off-screen */
-    width: 80%; /* Reduced width for mobile */
+    transform: translateX(-100%);
+    /* Hidden off-screen */
+    width: 80%;
+    /* Reduced width for mobile */
     z-index: 1001;
   }
 
   .sidebar.active {
-    transform: translateX(0); /* Visible when toggled */
+    transform: translateX(0);
+    /* Visible when toggled */
   }
 
   .close-sidebar {
-    display: block; /* Show close button on mobile */
+    display: block;
+    /* Show close button on mobile */
   }
 
   .main {
-    margin-left: 0; /* No margin when sidebar is hidden */
+    margin-left: 0;
+    /* No margin when sidebar is hidden */
   }
 
   .hamburger {
-    display: block; /* Show hamburger menu on mobile */
+    display: block;
+    /* Show hamburger menu on mobile */
   }
 
   .chat-header h1 {
@@ -396,7 +439,24 @@ body {
     font-size: 13px;
   }
 
+  .button-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 8px;
+    margin-left: 10px;
+  }
+
+  .button-container button,
+  .button-container a button {
+    flex: 1 1 auto;
+    min-width: 100px;
+    font-size: 13px;
+    padding: 8px 10px;
+    white-space: nowrap; /* Prevents button text from breaking into multiple lines */
+  }
+
   .sidebar .sidebar-settings li {
-    margin-top: 20px; /* Adjusted for mobile */
+    margin-top: 20px;
   }
 }

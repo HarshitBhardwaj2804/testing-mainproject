@@ -12,16 +12,14 @@ body {
   height: 100vh;
   display: flex;
   transition: background 0.3s, color 0.3s;
-  overflow-x: hidden;
-  /* Prevent horizontal scroll when sidebar is hidden */
+  overflow-x: hidden; /* Prevent horizontal scroll when sidebar is hidden */
 }
 
 .container {
   display: flex;
   width: 100%;
   position: relative;
-  transition: transform 0.3s ease;
-  /* Smooth transition for sidebar toggle */
+  transition: transform 0.3s ease; /* Smooth transition for sidebar toggle */
 }
 
 /* Sidebar */
@@ -60,8 +58,7 @@ body {
   border-radius: 30px;
   cursor: pointer;
   transition: background 0.3s, box-shadow 0.3s;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 1.13);
-  /* Fixed invalid box-shadow value */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 1.13); /* Fixed invalid box-shadow value */
 }
 
 .sidebar .sidebar-settings li {
@@ -74,8 +71,7 @@ body {
 }
 
 .sidebar .sidebar-settings li {
-  margin-top: 402px;
-  /* Consider adjusting for mobile */
+  margin-top: 402px; /* Consider adjusting for mobile */
 }
 
 .nav-btn {
@@ -91,8 +87,7 @@ body {
 
 /* Close button for mobile sidebar */
 .close-sidebar {
-  display: none;
-  /* Hidden on desktop */
+  display: none; /* Hidden on desktop */
   background: none;
   border: none;
   font-size: 18px;
@@ -109,8 +104,7 @@ body {
   display: flex;
   flex-direction: column;
   background: #f1f5f9;
-  margin-left: 220px;
-  /* Matches sidebar width */
+  margin-left: 220px; /* Matches sidebar width */
   transition: margin-left 0.3s ease;
 }
 
@@ -119,7 +113,7 @@ body {
   padding: 20px 30px;
   background-color: #ffffff;
   border-bottom: 1px solid #838486;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -158,8 +152,7 @@ body {
 
 /* Hamburger menu for mobile */
 .hamburger {
-  display: none;
-  /* Hidden on desktop */
+  display: none; /* Hidden on desktop */
   background: none;
   border: none;
   font-size: 24px;
@@ -170,8 +163,7 @@ body {
 /* Chat Box */
 .chat-box {
   flex: 1;
-  padding: 12px;
-  padding-bottom: 100px; 
+  padding: 20px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -188,8 +180,7 @@ body {
   word-wrap: break-word;
   white-space: pre-wrap;
   animation: fadeIn 0.3s ease-in;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  /* Fixed invalid box-shadow value */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Fixed invalid box-shadow value */
   font-size: 1rem;
 }
 
@@ -201,7 +192,6 @@ body {
   text-align: left;
   border-top-right-radius: 0;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 1.13);
-  line-height: 1.4;
 }
 
 /* Bot Message */
@@ -213,7 +203,6 @@ body {
   border-top-left-radius: 0;
   border: 1px solid #e2e8f0;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 1.13);
-  line-height: 1.4;
 }
 
 /* Bot Markdown Styles */
@@ -232,22 +221,21 @@ body {
   font-family: monospace;
   font-size: 0.9rem;
   margin-top: 10px;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
 }
 
 /* Input Area */
-/* .input-area {
+.input-area {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 16px;
   border-top: 1px solid #838486;
   background: #ffffff;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.03);
   position: sticky;
   bottom: 0;
   z-index: 10;
-  border-radius: 20px;
 }
 
 .input-area input {
@@ -259,7 +247,6 @@ body {
   color: #0f172a;
   font-size: 1rem;
   transition: border-color 0.3s;
-  
 }
 
 .input-area input:focus {
@@ -283,75 +270,6 @@ body {
 .input-area button:hover {
   background: #1d4ed8;
   box-shadow: 0 6px 12px rgba(37, 99, 235, 0.5);
-} */
-
-.input-area {
-  position: sticky;
-  bottom: 0;
-  left: 220px;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  padding: 12px;
-  background-color: #fff;
-  border-top: 1px solid #ccc;
-  gap: 10px;
-  z-index: 10;
-}
-
-.input-wrapper {
-  position: relative;
-  /* width: 730px; */
-}
-
-#user-input {
-  width: 100%;
-  padding: 10px 50px 10px 27px; /* space for send button */
-  border: 1px solid #ccc;
-  border-radius: 45px;
-  resize: none;
-  min-height: 40px;
-  max-height: 150px;
-  overflow: hidden;
-  font-size: 16px;
-  line-height: 1.4;
-  box-sizing: border-box;
-  transition: height 0.2s ease;
-}
-
-.send-button {
-  position: absolute;
-  right: 10px;
-  top: 46%;
-  transform: translateY(-50%);
-  padding: 7px 13px;
-  border: none;
-  border-radius: 50%;
-  background-color: #007bff;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.web-button {
-  align-self: flex-start;
-  padding: 8px 10px;
-  border: none;
-  border-radius: 35px;
-  background-color: #007bff;
-  color: white;
-  font-size: 14px;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
-.send-button::before {
-  content: '↑';
-}
-
-.web-button:hover,
-.send-button:hover {
-  background-color: #0056b3;
 }
 
 /* Responsive Design */
@@ -361,46 +279,34 @@ body {
   }
 
   .sidebar {
-    transform: translateX(-100%);
-    /* Hidden off-screen */
-    width: 80%;
-    /* Reduced width for mobile */
+    transform: translateX(-100%); /* Hidden off-screen */
+    width: 80%; /* Reduced width for mobile */
     z-index: 1001;
   }
 
   .sidebar.active {
-    transform: translateX(0);
-    /* Visible when toggled */
+    transform: translateX(0); /* Visible when toggled */
   }
 
   .close-sidebar {
-    display: block;
-    /* Show close button on mobile */
+    display: block; /* Show close button on mobile */
   }
 
   .main {
-    margin-left: 0;
-    /* No margin when sidebar is hidden */
+    margin-left: 0; /* No margin when sidebar is hidden */
   }
 
   .hamburger {
-    display: block;
-    /* Show hamburger menu on mobile */
+    display: block; /* Show hamburger menu on mobile */
   }
 
-  .chat-header{
-    width: 100%;
-    position: fixed;
-  }
   .chat-header h1 {
     font-size: 20px;
     text-align: center;
   }
 
   .chat-box {
-    padding-bottom: 72px;
-    padding-top: 82px;
-    /* reserve space for input area */
+    padding-bottom: 72px; /* reserve space for input area */
   }
 
   .chat-message {
@@ -408,7 +314,7 @@ body {
     font-size: 0.95rem;
   }
 
-  /* .input-area {
+  .input-area {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -427,24 +333,10 @@ body {
     font-size: 0.9rem;
     width: auto;
     min-width: 80px;
-  } */
-   .input-area {
-    left: 0;
-    padding: 10px;
-  }
-
-  .web-button {
-    margin-left: 10px;
-    width: 32%;
-  }
-
-  .input-wrapper {
-    width: 100%;
   }
 
   .sidebar .sidebar-settings li {
-    margin-top: 20px;
-    /* Adjusted for mobile */
+    margin-top: 20px; /* Adjusted for mobile */
   }
 }
 
@@ -454,7 +346,6 @@ body {
     opacity: 0;
     transform: translateY(6px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
