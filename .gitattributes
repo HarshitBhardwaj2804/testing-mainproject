@@ -1,0 +1,2 @@
+# Required for Hugging Face Spaces Docker support
+*.py text eol=lf
