@@ -17,7 +17,7 @@ load_dotenv()
 ## Setting-Up Langchain-tracing.
 os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGCHAIN_API_KEY")
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
-os.environ["LANGCHAIN_PROJECT"] = "CARL-testing"
+os.environ["LANGCHAIN_PROJECT"] = "CARL"
 
 groq_api_key = os.getenv("GROQ_API_KEY_MAIN_PROJECT")
 
@@ -29,7 +29,7 @@ prompt = ChatPromptTemplate(
     ]
 )
 
-llm = ChatGroq(model="llama-3.3-70b-versatile", groq_api_key=groq_api_key)
+llm = ChatGroq(model="gemma2-9b-it", groq_api_key=groq_api_key)
 chain = prompt | llm
 
 def get_session_history(session_id: str):
@@ -43,7 +43,7 @@ message_chain = RunnableWithMessageHistory(
 )
 
 def generate_session_details():
-    timestamp = datetime.now().strftime("%Y%m%d%H%M%S%f")
+    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
     rand_suffix = "".join(random.choices(string.ascii_lowercase + string.digits, k=6))
     session_id = f"session_{timestamp}-{rand_suffix}"
     return session_id
@@ -70,6 +70,22 @@ def send_message():
 def extensions():
     return render_template("extensions.html")
 
+@app.route("/load_chat/<session_id>")
+def load_chat(session_id):
+    return render_template("index.html", session_id=session_id)
+
+@app.route("/get_previous_messages/<session_id>")
+def get_previous_messages(session_id):
+    file_path = "chat_sessions_test.json"
+    if not os.path.exists(file_path):
+        return jsonify([])
+
+    with open(file_path, "r") as f:
+        all_data = json.load(f)
+
+    messages = all_data.get(session_id, [])
+    return jsonify(messages)
+
 @app.route("/history")
 def history():
     file_path = "chat_sessions_test.json"
@@ -90,20 +106,23 @@ def history():
         # Extract timestamp from session_id
         # Expecting: session_20250802114211310567-db0lt1
         parts = session_id.partition("_")[2].partition("-")[0]  # safer extraction
-        timestamp_str = parts[:8]  # Only get date: YYYYMMDD
+        datestamp_str = parts[:8]  # Only get date: YYYYMMDD
+        timestamp_str = parts[8:12] # Only get the time: HHMM
 
         try:
-            date_obj = datetime.strptime(timestamp_str, "%Y%m%d")
+            date_obj = datetime.strptime(datestamp_str, "%Y%m%d")
             formatted_date = date_obj.strftime("%B %d, %Y")
+            time_obj = datetime.strptime(timestamp_str, "%H%M")
+            formatted_time = time_obj.strftime("%I:%M %p")
         except Exception:
             formatted_date = "Unknown"
 
-
+        date_time = f"{formatted_date} : {formatted_time}"
         sessions.append({
             "session_id": session_id,
             "chat_name": chat_name,
             "first_message": first_user_msg,
-            "date": formatted_date
+            "datetime" : date_time
         })
 
     # Newest first
@@ -111,8 +130,9 @@ def history():
 
     return render_template("history.html", sessions=sessions)
 
-
+@app.route("/settings")
+def settings():
+    return render_template("settings.html")
 
 if __name__ == "__main__":
-    app.run(host = "0.0.0.0", debug=True)
-
+    app.run(debug=True)
